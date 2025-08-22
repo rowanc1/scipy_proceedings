@@ -3,11 +3,11 @@ title: Jupyter Book 2 and the MyST Document Stack
 subtitle: A modular, extensible, web-native stack for authoring and publishing computational narratives
 abstract: |
   Jupyter Book allows researchers and educators to create books, articles, and collections of connected documents that are reusable, reproducible, and interactive.
-  Over the past three years, Jupyter Book has been entirely rebuilt atop the MyST Document Engine (`mystmd`) and its ecosystem of tools and standards.
+  Over the past three years, Jupyter Book has been entirely rebuilt on top of the MyST Document Engine (`mystmd`) and its ecosystem of tools and standards.
   This new foundation introduces a scalable way to publish modern scientific content that enables interactive code and computation, structured metadata, and content reuse across contexts.
   It allows for a more fluid workflow between computational discovery and communication, treating computation as a first-class citizen in authoring and reading.
   Jupyter Book 2 (JB2) is now a Jupyter subproject, and already powers several open scientific resources including [The Turing Way](https://book.the-turing-way.org/), [QuantEcon](https://quantecon.org/), [Project Pythia](https://projectpythia.org/), and the [QIIME 2](https://qiime2.org/) Framework (Q2F) documentation ecosystem.
-  Here we introduce the principles, architecture, and capabilities of JB2, shares real-world adoption stories, and explores how these tools are shaping the future of open computational publishing.
+  This paper introduces the principles, architecture, and capabilities of JB2, shares real-world adoption stories, and explores how these tools are shaping the future of open computational publishing.
 ---
 
 # Jupyter Book 2 and the MyST Document Stack
@@ -18,8 +18,8 @@ Jupyter Book (@10.5281/zenodo.2561065) has become a widely used tool in computat
 It enables clear communication of both exploratory computation and narrative text, making it possible to document, share, and publish computational workflows in accessible formats.
 
 With Jupyter Book 2, the project has undergone a major transformation.
-JB2 is now a distribution of the MyST (Markedly Structured Text) Document Engine[^pronunciation]; every book built with JB2 is also a MyST project, and building a book with JB2 means building a MyST project.
-Jupyter Book 2 heavily utilizes components from the MyST ecosystem - a collection of open source tools and standards for authoring open computational narratives.
+Jupyter Book 2 is now a distribution of the MyST (Markedly Structured Text) Document Engine[^pronunciation]; every book built with Jupyter Book 2 is also a MyST project, and building a book with Jupyter Book 2 means building a MyST project.
+Jupyter Book 2 heavily utilizes components from the MyST ecosystem—a collection of open source tools and standards for authoring open computational narratives.
 This is similar to the relationship between Jupyter Book 1 and Sphinx.
 
 The goal of this overhaul is to make structured scientific content more interoperable, composable, extensible, and machine-readable.
@@ -45,13 +45,13 @@ Scholarly Authors and Publishers
 They need structured metadata, citation systems, and outputs compatible with academic and institutional publishing pipelines.
 
 Both of these groups are underserved by the current ecosystem of open source technology.
-Today's scientific workflows rely on computational tools like Jupyter Notebooks, yet the systems used to communicate and publish these workflows are fragmented and poorly integrated.
+Today’s scientific workflows rely on computational tools like Jupyter Notebooks, yet the systems used to communicate and publish these workflows are fragmented and poorly integrated.
 For example, researchers often do their work in an interactive computing environment designed for exploration, and must then adopt an entirely new toolchain for publishing their work.
 As a result, researchers must spend time adapting to new workflows, duplicating and reformatting their content just for the sake of publishing.
-Published work is often stripped of its computational context and an easy ability to access environments to reproduce a result because of the constraints of output-specific pipelines, such as PDF generation.
+Because output-specific pipelines, such as PDF generation, are fairly constrained, published work is often stripped of its computational context, leaving no mechanism to access software environments and reproduce results. 
 
 Over the years, there have been many attempts at improving this workflow with new technologies and standards (several are discussed below), but none have provided the combination of flexibility, standards-based implementation, and community governance needed to cover the entire lifecycle from idea to communication described above.
-Jupyter Book 2 and the MyST ecosystem is an attempt to cover this gap.
+Jupyter Book 2 and the MyST Ecosystem is an attempt to bridge this gap.
 
 ### Overview of Jupyter Book 2's architecture
 
@@ -87,14 +87,14 @@ The **MyST Specification** defines all of the types of content and metadata that
 It is meant to be a cross-platform standard that can be used by various applications and parsers in order to facilitate sharing and re-use of content.
 
 The MyST Document Engine outputs a **MyST Abstract Syntax Tree (AST)** that follows the MyST Specification.
-The AST is a machine-readable representation of each document's content and structure.
+The AST is a machine-readable representation of each document’s content and structure.
 It preserves not only the narrative content, but also computational blocks, computational outputs from Jupyter Notebooks, citations, figures, and metadata such as author affiliations and license information.
-These are all built into a structured, version-controlled AST.
+These are all built into a structured, versioned AST.
 It is a **Canonical Document Representation** that can be parsed and rendered into user-facing outputs by renderers and themes.
 
 **MyST Markdown** is a flavor of markdown written for the MyST Specification that gives authors quick access to these and other extension points.
 MyST Markdown supports syntax for all of the content types supported in the MyST Specification.
-It is used both in Jupyter Book 2 and the MyST Engine, as well as in the Sphinx ecosystem.
+It is used both in Jupyter Book 2 and the MyST Engine, as well as in the Sphinx ecosystem via the [myst-parser extension](https://myst-parser.readthedocs.io/en/latest/).
 
 As an example, see the example **note directive** written in MyST Markdown below (for more information on directives, see the sections below).
 
@@ -105,7 +105,7 @@ Admonition **body**.
 ```
 
 The MyST Document Engine parses this markdown content into an AST that follows the MyST Specification.
-It looks like the following:
+It looks like this:
 
 ```yaml
 - type: admonition
@@ -127,7 +127,7 @@ It looks like the following:
           value: ...
 ```
 
-This AST is then made available for renderers to export into various output formats.
+Renderers then convert this AST into various output formats.
 
 ### MyST Renderers and Themes: Tools to convert MyST AST into user-facing products
 
@@ -161,33 +161,34 @@ The React component above is styled by the Book Theme into this final product:
 
 Importantly, **MyST Renderers can be written for any kind of output**.
 For example, there is a **Typst** renderer and a **LaTeX** renderer, which can themselves be customized with **themes** to generate different types of outputs.
-JB2 ships with a default Book Theme for each type of renderer, but we imagine our ecosystem of users extending this to include, for example, LaTeX templates for a variety of Journals.
-The [`myst-templates`](http://github.com/myst-templates) GitHub organization already hosts a collection of community-maintained templates for rendering and theming MyST AST into various kinds of outputs.
+Jupyter Book 2 ships with a default Book Theme for each type of renderer, but we imagine our ecosystem of users extending this to include, for example, LaTeX templates for a variety of Journals.
+The `myst-templates` GitHub organization ([github.com/myst-templates](http://github.com/myst-templates)) already hosts a collection of community-maintained templates for rendering and theming MyST AST into various kinds of outputs.
 
 ### Jupyter Book 2: A distribution of MyST components
 
 Finally, Jupyter Book 2 is a lightweight distribution and configuration layer on top of these and other components of the MyST ecosystem.
-It is meant to provide an opinionated experience of MyST, for example by turning on certain features by default, providing an out-of-the-box theme meant for multi-document websites.
-At its core, JB2 functionality is leveraging components in the MyST ecosystem.
+It is meant to provide an opinionated experience of MyST–for example, by turning on certain features by default, and by providing an out-of-the-box theme meant for multi-document websites.
+At its core, Jupyter Book 2 functionality is leveraging components in the MyST ecosystem.
 
 This is a pattern that we wish to encourage and grow in the MyST ecosystem.
 Tools like the MyST Document Engine aim to be unopinionated, modular, configurable, and extendable.
-They're primarily meant for use by **power users and developers** who are interested in configuring MyST tools for their own needs or those of their community, or building MyST tools into separate applications.
-JB2 is meant for **end-users like researchers and educators** who want an opinionated system for communicating with computational narratives that "just works".
+They’re primarily meant for use by **power users and developers** who are interested in configuring MyST tools for their own needs/community, or building MyST tools into separate applications.
+Jupyter Book 2 is meant for **end-users like researchers and educators** who want an opinionated system for communicating computational narratives that “just works”.
 
-In this way, we imagine that an ecosystem of tools and services _similar to Jupyter Book 2_ may be built on top of the MyST Document Engine, Specification, Renderers, and other components.
+We envision that a broader _ecosystem_ of high-level tools and services—_similar to Jupyter Book 2_ itself—may be built on top of the MyST Document Engine, Specification, Renderers, and other components.
 With that in mind, we now turn to the design principles that drove the architecture of the MyST ecosystem, and the value that they bring to the open science community.
 
 ## Design Principles
 
-The design of Jupyter Book 2 is grounded in practical responses to the needs of researchers, educators, and publishers who must communicate with and about data, as well as software developers in the open science ecosystem who wish to build new applications on community standards and tools.
-We've grounded the design and development of the JB2 stack with the following principles.
+Jupyter Book 2 is designed to meet the practical needs of researchers, educators, and publishers who communicate with—and about—data.
+It also supports developers in the open science ecosystem who build applications on shared standards and tools.
+We have grounded the design and development of the JB2 stack with the following principles.
 
-Simple and quick to use, easy to extend
+Simple to use, easy to extend
 : Users should be able to run common workflows with minimal complexity, dependencies, setup, and configuration. Power-users should be able to extend this functionality with minimal effort.
 
-Content should be canonical and machine readable
-: There should be a canonical, machine readable representation of all content, allowing it to be re-used and rendered into multiple outputs without losing structure, metadata, or intent.
+Use standardized, machine readable formats
+: There should be a canonical, machine-readable representation of all content, allowing it to be re-used and rendered into multiple outputs without losing structure, metadata, or intent.
 
 Content should be modular and composable
 : Canonical content should be made up of small, reusable components to enable reuse, cross-referencing, and re-mixing into diverse outputs.
@@ -461,8 +462,8 @@ Both of these build on the composability and modularity designs that are at the 
 As an inclusive open-geoscience community effort, Project Pythia aims to build tools and practices that reduce participation barriers and incentivize working geoscientists to share their discipline-specific data fluency. 
 Shared configurations in JB2 substantially reduce the boilerplate code in individual repositories, clearing the way for contributors to focus on their science content while a core team of maintainers efficiently advances the shared computational and web-publishing infrastructure.
 
-**The QIIME 2 Framework (Q2F)** (@10.1038/s41587-019-0209-9) is a platform for biological data science tools, originally developed for the QIIME 2 microbiome bioinformatics toolkit, but now supporting tools across diverse subdomains of biology including multiplexed serology and pathogen genomics. 
-Q2F has adopted JB2 to support its documentation ecosystem which includes documentation that is general to users of all Q2F-based tools (e.g., creating and using a Q2F data artifact cache) and documentation that is specific to subdomains (e.g., an end-to-end tutorial for microbiome data analysis).
+**The QIIME 2 Framework (Q2F)** is a platform for biological data science tools, originally developed for the QIIME 2 microbiome bioinformatics toolkit, but now supporting tools across diverse subdomains of biology including multiplexed serology and pathogen genomics.
+Q2F has adopted JB2 to support its documentation ecosystem which includes documentation that is [general to users of all Q2F-based tools](https://use.qiime2.org) (e.g., creating and using a Q2F data artifact cache) and documentation that is specific to subdomains (e.g., [an end-to-end tutorial for microbiome data analysis](https://amplicon-docs.qiime2.org/en/latest/tutorials/gut-to-soil.html)).
 JB2 enables embedding of content across documentation projects, such that general content can be embedded in domain-specific content where relevant, making it easier to hide the software stack complexity from end users while avoiding duplication of source content.
 
 **QuantEcon** provides open educational resources in economics and quantitative methods, built using Python, Julia, and Jupyter.
@@ -505,12 +506,13 @@ Project Pythia's transition to Jupyter Book 2 was supported by the National Scie
 Notebooks Now was supported by a grant from the Alfred P. Sloan Foundation ([#19361](https://sloan.org/grant-detail/g-2022-19361)).
 
 We especially acknowledge Chris Sewell, whose foundational work on the MyST Markdown specification, the Sphinx parser (`myst-parser`), and the wider Jupyter Book 1 ecosystem in Sphinx.
-Chris's attention to these technical underpinnings laid the groundwork for many of the capabilities now realized in Jupyter Book 2.
-In addition, we acknowledge John Stachurksi for providing key leadership and securing the original funding that created the Jupyter Book 1 ecosystem built on Sphinx.
+Chris’s attention to these technical underpinnings laid the groundwork for many of the capabilities now realized in Jupyter Book 2.
+In addition, we acknowledge John Stachurski for providing key leadership and securing the original funding that created the Jupyter Book 1 ecosystem built on Sphinx.
 
 We also acknowledge the work of the Executable Books team, the contributors to Jupyter Frontends sub-project, Thebe, and the maintainers of MyST-related tooling and plugins.
 The ongoing development of Jupyter Book 2 is supported and stewarded by the Jupyter Book Community, and is now a subproject of Project Jupyter.
 
+Authors are in alphabetical order after "Project Jupyter" following Project Jupyter's approved [process for authoring Jupyter related academic papers](https://jupyter.org/governance/papers.html) and aligned with our shared values of inclusivity and generosity in authorship, following clear, explicit criteria for authorship, openness, and personal accountability.
 [^deps]: There are 18.152 dependencies of JupyterBook (v1 and v2, combined) based on GitHub dependency graph: https://github.com/jupyter-book/jupyter-book/network/dependents.
 [^pronunciation]: MyST is pronounced like “missed”.
 [^plugins]: Examples are available in the [appendix](#appendix-plugins)
